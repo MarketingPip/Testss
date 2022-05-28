@@ -1,16 +1,15 @@
-
-name: 'action-html-to-image'
+name: Puppeteer Screenshot Action
 on: workflow_dispatch
-description: 'Renders images from HTML'
-author: 'Sentry'
-inputs:
-  base-path: '/pages/index.html/'
-    description: 'base path to snapshots'
-  css-path:
-    description: 'path to custom css to inject'
-runs:
-  using: 'docker'
-  image: 'docker://ghcr.io/getsentry/action-html-to-image:latest'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Take photo of github.com
+      uses: "lannonbr/puppeteer-screenshot-action@1.0.0"
+      with:
+          url: https://github.com
+
+
 
 
 
