@@ -11,7 +11,7 @@ jobs:
 
       # Run Screenshot Comment Action
       - name: Run Screenshot Comment Action
-        uses: saadmk11/comment-webpage-screenshot@main
+        uses: MarketingPip/comment-webpage-screenshot@main
         with:
           upload_to: imgur
           # Capture Screenshots of Changed HTML Files
