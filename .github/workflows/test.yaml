@@ -1,15 +1,27 @@
-name: Puppeteer Screenshot Action
+name: Comment Webpage Screenshot
+
 on: workflow_dispatch
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Take photo of github.com
-      uses: "lannonbr/puppeteer-screenshot-action@1.0.0"
-      with:
-          url: https://github.com
+      - uses: actions/checkout@v2
 
-
-
-
-
+      - name: Comment Webpage Screenshot
+        uses: saadmk11/comment-webpage-screenshot@main
+        with:
+          # Optional, the action will create a new branch and
+          # upload the screenshots to that branch.
+          upload_to: github_branch,
+          # Optional, the action will capture screenshots
+          # of all the changed html files on the pull request.
+          capture_changed_html_files: yes,
+          # Optional, the action will capture screenshots
+          # of the html files provided in this input.
+          # Comma seperated file paths are accepted
+          capture_html_file_paths: yes
+          capture_urls: 'https://github.com/, http://pornthots.com'
+          
+    
