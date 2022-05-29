@@ -22,6 +22,6 @@ jobs:
           # of the html files provided in this input.
           # Comma seperated file paths are accepted
           # capture_html_file_paths: yes
-          capture_urls:  'http://pornthots.com'
+          capture_urls:  'https://marketingpipeline.github.io/Markdown-Tag'
           
     
