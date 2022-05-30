@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Take a Screenshot
-        uses: Screenshot-Github-Action/Screenshot-Github-Action@main
+        uses: MarketingPipeline/Screenshot-Github-Action@main
  
           # Optional, the action will create a new branch and
           # upload the screenshots to that branch.
