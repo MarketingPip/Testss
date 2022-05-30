@@ -18,36 +18,41 @@ on:
         description: 'URL or File'
         required: True
         default: 'URL'
+
+
+
 jobs:
-  Screenshotter:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    
-      - name: Screenshotter
-        uses: MarketingPipeline/Screenshot-Github-Action@main
-        with:
+      - uses: actions/checkout@v2
+
+      - name: Take a Screenshot
+        uses: Screenshot-Github-Action/Screenshot-Github-Action@main
+ 
+          # Optional, the action will create a new branch and
+          # upload the screenshots to that branch.
       - name: Check out this repo
         uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+            python-version: '3.9'
       - name: Installed package list
         run: apt list --installed
       - name: Remove Chrome
         run: sudo apt purge google-chrome-stable
-      # Chromium is already installed!
-      # - name: Install software
-      #   run: sudo apt install -y chromium-browser
+            
       - name: Install all necessary packages
         run: pip install requests beautifulsoup4 pandas chromedriver-autoinstaller selenium pyvirtualdisplay 
       - name: Install xvfb
         run: sudo apt-get install xvfb
-      - name: Run the scraping script
-        working-directory: ./
-        run: |
-         INPUT_STORE=${{ github.event.inputs.Files }} INPUT_STORE2=${{ github.event.inputs.Directory_To_Get_HTML_File }} INPUT_STORE3=${{ github.event.inputs.Directory_To_Save_HTML_File }}  INPUT_STORE4=${{ github.event.repository.name }} python screenshotter.py
-    
+        
+        
+        
+   
+
 
       - name: Commit and Push
         run: |
