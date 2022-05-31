@@ -1,19 +1,36 @@
-name: ds
+name: Reusable workflow example
 
-on: workflow_dispatch
+on:
+  workflow_call:
+    inputs:
+      Files:
+        description: 'URL(s) or File(s) to take screenshot of (seperate by comma):'
+        required: true
+        type: string
+        default: "https://github.com,"  
+      Directory_To_Get_HTML_File:
+        description: 'The directory name to save screenshots to (example : path/to/directory'
+        required: true
+        type: string
+        default: ""          
+      Directory_To_Save_HTML_File:
+        description: 'URL or File'
+        required: True
+        type: string
+        default: 'URL'
+        
+    secrets:
+      token:
+        required: true
 
 jobs:
-  bssuild:
+  example_job:
+    name: Pass input and secrets to my-action
     runs-on: ubuntu-latest
     steps:
-      # Checkout your pull request code
-    - uses: MarketingPipeline/Screenshot-Github-Action@main # You can change this to use a specific version.
-      with:
-       # The arguments for the `git add` command (see the paragraph below for more info)
-    # Default: '.'
-         Files: "https://github.com"
-         Directory_To_Get_HTML_File: ""
-         Directory_To_Save_HTML_File: "URL"
-         run: python screenshotter.py
-
-   
+      - uses: MarketingPipeline/Screenshot-Github-Action@main 
+        with:
+          Files: ${{ inputs.Files }}
+          Directory_To_Get_HTML_File: ${{ inputs.Directory_To_Get_HTML_File }}
+          Directory_To_Save_HTML_File: ${{ inputs.Directory_To_Save_HTML_File }}
+        
