@@ -19,9 +19,7 @@ on:
         type: string
         default: 'URL'
         
-    secrets:
-      token:
-        required: true
+
 
 jobs:
   example_job:
