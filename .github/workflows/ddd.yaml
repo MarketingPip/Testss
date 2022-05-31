@@ -1,9 +1,9 @@
-name: d
+name: ds
 
 on: workflow_dispatch
 
 jobs:
-  build:
+  bssuild:
     runs-on: ubuntu-latest
     steps:
       # Checkout your pull request code
