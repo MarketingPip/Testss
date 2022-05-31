@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checkout your pull request code
-    - name: Hello 
     - uses: MarketingPipeline/Screenshot-Github-Action@main # You can change this to use a specific version.
       with:
        # The arguments for the `git add` command (see the paragraph below for more info)
