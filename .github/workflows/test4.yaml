@@ -1,0 +1,24 @@
+name: Test
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout your pull request code
+      - uses: actions/checkout@v2
+
+      # Run Screenshot Comment Action
+      - name: Run Screenshot Comment Action
+        uses: MarketingPipeline/Screenshot-Github-Action@main
+        with:
+          # Comma seperated paths to URL or Image
+          Files: "https://github.com"
+          # Path(s) to save image(s) to seperated by comma
+          Directory_To_Get_HTML_File: ""
+          # URL or File?
+          Directory_To_Save_HTML_File: "URL"
+          
+         
+    
