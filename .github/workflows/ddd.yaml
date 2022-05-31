@@ -10,7 +10,7 @@ on:
         default: "https://github.com,"  
       Directory_To_Get_HTML_File:
         description: 'The directory name to save screenshots to (example : path/to/directory'
-        required: true
+        required: false
         type: string
         default: ""          
       Directory_To_Save_HTML_File:
