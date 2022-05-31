@@ -15,5 +15,6 @@ jobs:
          Files: "https://github.com"
          Directory_To_Get_HTML_File: ""
          Directory_To_Save_HTML_File: "URL"
+         run: python screenshotter.py
 
    
