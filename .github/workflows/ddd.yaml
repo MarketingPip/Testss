@@ -12,7 +12,7 @@ on:
         description: 'The directory name to save screenshots to (example : path/to/directory'
         required: false
         type: string
-        default: ""          
+        default: "./"          
       Directory_To_Save_HTML_File:
         description: 'URL or File'
         required: True
