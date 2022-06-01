@@ -2,11 +2,11 @@
  {
   "url_title": "Welcome-to-my-website",
   "title": "Welcome to my website",
-  "sub_title": "Who am I, you may ask?",
+  "sub_title": "Welcome to my lovingly portfolio page.",
   "top_image": "top_image.jpeg",
   "about_me_image": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png",
-  "about_me_title" : "Hello, I am Username",
-  "about_me_description" : "I like building this",
+  "about_me_title" : "I'm a location-independent minimalist web designer.",
+  "about_me_description" : "Coffee ipsum says: Saucer and wings cream java single shot at instant. Con panna, mazagran aroma, spoon latte ristretto viennese cream grounds. Flavour siphon chicory single origin robusta iced decaffeinated. To go dripper trifecta iced macchiato body americano java acerbic.",
   "email" : "hello@world.com",
   "visible": true
  }
