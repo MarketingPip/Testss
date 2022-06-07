@@ -26,9 +26,7 @@ jobs:
     name: Pass input and secrets to my-action
     runs-on: ubuntu-latest
     steps:
-      - uses: MarketingPipeline/Screenshot-Github-Action@main 
-        with:
-          Files: ${{ inputs.Files }}
-          Directory_To_Get_HTML_File: ${{ inputs.Directory_To_Get_HTML_File }}
-          Directory_To_Save_HTML_File: ${{ inputs.Directory_To_Save_HTML_File }}
-        
+     - uses: lsetiawan/py-github-actions-starter@v1
+       with:
+         time: '5'   
+    
