@@ -1,62 +1,33 @@
-<head>
-</head>
-<body>
-  hello
-  <button onclick="test();">test</button>
+<form action="" method="post" id="formToSave">
+      <h1>Subscribe For Latest Blogs</h1>
+      <p>Please subscribe in my website using your email address for latest updates about my blogs and publications.</p>
+      <div class="email-box">
+        <i class="fas fa-envelope"></i>
+        <input class="tbox" type="email" name="email" id="email" value="" placeholder="Enter Your Email Address" />
+        <m><button class="btn" type="button" name="button" onclick="addEmailToList()">Subscribe</button></m>
+        <m><button class="btn" type="button" name="button" onclick="fileFunction()">Download TextFile</button></m>
+      </div>
+    </form>
 <script>
-var data = new FormData();
-data.append("data" , "the_text_you_want_to_save");
-var xhr = (window.XMLHttpRequest) ? new XMLHttpRequest() : new activeXObject("Microsoft.XMLHTTP");
-xhr.open( 'post', 'tests.txt', true );
-xhr.send(data);
-</script>
-  
-<script>
-function fileFunction(){
+  function fileFunction(){
    fetch(`rawtest.txt`)
     .then(response => response.text())
     .then((text) => {
   var file = (text);
- 
- with(file){
-           open("text/plain", "replace");
-             charset = "utf-8";
-           write("helloo");
-           close();
- }
-   
+
+  var test = "hello"   
+  file.push(test)   
   /*Update the paragraph with new string*/
 
 });
     
 }
 
-window.onload = fileFunction;
-  
-  
-  
-  function save_content_to_file(content, filename)
-{
-    var dlg = false;
-    with(document){
-     ir=createElement('iframe');
-     ir.id='ifr';
-     ir.location='about.blank';
-     ir.style.display='none';
-     body.appendChild(ir);
-      with(getElementById('ifr').contentWindow.document){
-           open("text/plain", "replace");
-           charset = "utf-8";
-           write(content);
-           close();
-           document.charset = "utf-8";
-           dlg = execCommand('SaveAs', false, filename+'.txt');
-       }
-       body.removeChild(ir);
-     }
-    return dlg;
+const emailsList = []
+
+function addEmailToList() {
+  const email = document.getElementById('email')
+  const { value } = email
+  emailsList.push(value)
 }
-  
-save_content_to_file("Hello", "test");  
-  </script>
-                                                                                                </body>
+</script>
