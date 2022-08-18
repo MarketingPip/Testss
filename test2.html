@@ -38,7 +38,7 @@ describe('Simple Client-Side Server Example', function() {
 
     server
       .get('https://jsonplaceholder.typicode.com/posts/404')
-      .intercept((_, res) => {
+      .intercept((req, res) => {
         res.status(404).json({ error: 'Post not found.' });
       });
 
