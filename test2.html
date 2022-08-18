@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="//unpkg.com/mocha/mocha.css">
+
+<div id="mocha"></div>
+
+<script src="//unpkg.com/mocha/mocha.js"></script>
+<script src="//unpkg.com/chai/chai.js"></script>
+<script src="//unpkg.com/@pollyjs/core"></script>
+<script src="//unpkg.com/@pollyjs/adapter-fetch"></script>
+<script src="//unpkg.com/@pollyjs/persister-local-storage"></script>
+
+<script>
+  window.expect = window.chai.expect;
+  window.PollyJS = window['@pollyjs/core'];
+  
+  PollyJS.Polly.register(window['@pollyjs/adapter-fetch']);
+  PollyJS.Polly.register(window['@pollyjs/persister-local-storage']);
+  
+  mocha.setup({ ui: 'bdd' });
+  
+  // Run mocha after all scripts have been loaded and executed
+  window.addEventListener('load', () => {
+    mocha.checkLeaks();
+    mocha.run();
+  });
+</script>
+<script>
+ const { Polly } = PollyJS;
+
+describe('Simple Client-Side Server Example', function() {
+  it('fetches an unknown post', async function() {
+    const polly = new Polly('Simple Client-Side Server Example', {
+      adapters: ['fetch'],
+      persister: 'local-storage',
+      logging: true
+    });
+    const { server } = polly;
+
+
+    server
+      .get('https://jsonplaceholder.typicode.com/posts/404')
+      .intercept((_, res) => {
+        res.status(404).json({ error: 'Post not found.' });
+      });
+
+    const response = await fetch(
+      'https://jsonplaceholder.typicode.com/posts/404'
+    );
+    const post = await response.json();
+    console.info(post);
+    expect(response.status).to.equal(404);
+    expect(post.error).to.equal('Post not found.');
+
+
+    await polly.stop();
+  });
+});
+</script>
