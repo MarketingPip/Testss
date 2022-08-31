@@ -1,22 +1,100 @@
-<head>
+<script>
+let query = ""
+function setContent(x){
+  query = x 
+}
+function addAPIkey(){
+  
+  /// Add Markdown Parser To Document
+
+   
+
+
+  
+var script = document.createElement("script");
+
+// Add script content
+var B = `const TheMovieDB_APIKey = "249f222afb1002186f4d88b2b5418b55"`
+  
+script.innerHTML = B
+
+// Append
+
+document.head.appendChild(script);
+  
+  
+  console.log(script)
+  
+  // On Error Loading Markdown Parser
+
+
+  
+  /// Markdown Parser Load Successful 
+}
+
+
+function loadMarkdownParser(url){
+  
+  /// Add Markdown Parser To Document
+var script = document.createElement('script');
+script.src = url;
+
+document.head.appendChild(script); //or something of the likes  
+  
+  
+  console.log(script)
+  
+  // On Error Loading Markdown Parser
+script.onerror = function () {
+ 
+  console.error("Markdown Tag: Error while performing function LoadMarkdownParser - There was an error loading the Markdown Parser")
+  
+}
+
+  
+  /// Markdown Parser Load Successful 
+script.onload = function () {
+ 
+  // Let the Magic Begin 
+
+       document.body.innerHTML = `
+    <head>
   <title>Demo</title>
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <div class='Wrapper'>
-  <script>
-    const TheMovieDB_APIKey = "249f222afb1002186f4d88b2b5418b55"
-  </script>
-  <style>
-    .wrapper {
-      margin: 1rem auto;
-      max-width: 800px;
-    }
-  </style>
-  <script src="https://unpkg.com/construct-style-sheets-polyfill"></script>
-    <script src="https://polyfill.io/v3/polyfill.js?features=Array.prototype.map,fetch,Promise"></script>
   
 
-<media-element id="test" name="Hackers"></media-element>
+  
 
-<script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js"></script> 
+<media-element id="test" name="${query}"></media-element>
+ `
+  
+};
+}
+if (window.location.href.indexOf("") != -1) {
+
+window.onload=function(){
+     var url_string = window.location.href
+      var url = new URL(url_string);
+var c = url.searchParams.get("name");
+  
+console.log(c);
+     
+     
+     if (c === null){
+document.body.innerHTML = "No search route provided"
+       
+     }else{
+addAPIkey()
+setContent(c)
+loadMarkdownParser('https://unpkg.com/construct-style-sheets-polyfill');       
+       loadMarkdownParser('https://polyfill.io/v3/polyfill.js?features=Array.prototype.map,fetch,Promise');       loadMarkdownParser('https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js');
+       
+     }
+
+
+}} 
+  
+</script>  
