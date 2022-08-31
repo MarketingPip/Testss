@@ -85,22 +85,36 @@ script.onload = function () {
   
 };
 }
-if (window.location.href.indexOf("search&movie") != -1) {
+if (window.location.href.indexOf("search") != -1) {
 
 window.onload=function(){
      var url_string = window.location.href
       var url = new URL(url_string);
-var c = url.searchParams.get("name");
+var c = url.searchParams.get("type");
   
-console.log(c);
-     
-     
+if (c === "song"){
+  `type="song"`
+}
+if (c === "tv"){
+  `type="tv"`
+}  
+if (c === "movie"){
+  ``
+}
+
+var name = url.searchParams.get("name");  
+
+     if (name === null){
+document.body.innerHTML = "No search route provided"
+       
+     } 
+  
      if (c === null){
 document.body.innerHTML = "No search route provided"
        
      }else{
 addAPIkey()
-setContent(c, "")
+setContent(name, c)
 loadMarkdownParser('https://unpkg.com/construct-style-sheets-polyfill');       
        loadMarkdownParser('https://polyfill.io/v3/polyfill.js?features=Array.prototype.map,fetch,Promise');       loadMarkdownParser('https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js');
        
@@ -108,51 +122,5 @@ loadMarkdownParser('https://unpkg.com/construct-style-sheets-polyfill');
 
 
 }} 
-if (window.location.href.indexOf("search&show") != -1) {
 
-window.onload=function(){
-     var url_string = window.location.href
-      var url = new URL(url_string);
-var c = url.searchParams.get("name");
-  
-console.log(c);
-     
-     
-     if (c === null){
-document.body.innerHTML = "No search route provided"
-       
-     }else{
-addAPIkey()
-setContent(c, `type="tv"`)
-loadMarkdownParser('https://unpkg.com/construct-style-sheets-polyfill');       
-       loadMarkdownParser('https://polyfill.io/v3/polyfill.js?features=Array.prototype.map,fetch,Promise');       loadMarkdownParser('https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js');
-       
-     }
-
-
-}} 
-  
-if (window.location.href.indexOf("search&song") != -1) {
-
-window.onload=function(){
-     var url_string = window.location.href
-      var url = new URL(url_string);
-var c = url.searchParams.get("name");
-  
-console.log(c);
-     
-     
-     if (c === null){
-document.body.innerHTML = "No search route provided"
-       
-     }else{
-addAPIkey()
-setContent(c,  `type="song"`)
-loadMarkdownParser('https://unpkg.com/construct-style-sheets-polyfill');       
-       loadMarkdownParser('https://polyfill.io/v3/polyfill.js?features=Array.prototype.map,fetch,Promise');       loadMarkdownParser('https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js');
-       
-     }
-
-
-}}   
 </script>  
