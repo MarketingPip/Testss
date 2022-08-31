@@ -1,7 +1,9 @@
 <script>
 let query = ""
-function setContent(x){
+let type = ""
+function setContent(x, y){
   query = x 
+  type = `type=${y}`
 }
 function addAPIkey(){
   
@@ -78,12 +80,12 @@ script.onload = function () {
 
   
 
-<media-element id="test" name="${query}"></media-element>
+<media-element id="test" ${type} name="${query}"></media-element>
  `
   
 };
 }
-if (window.location.href.indexOf("") != -1) {
+if (window.location.href.indexOf("movie") != -1) {
 
 window.onload=function(){
      var url_string = window.location.href
@@ -106,5 +108,51 @@ loadMarkdownParser('https://unpkg.com/construct-style-sheets-polyfill');
 
 
 }} 
+if (window.location.href.indexOf("show") != -1) {
+
+window.onload=function(){
+     var url_string = window.location.href
+      var url = new URL(url_string);
+var c = url.searchParams.get("name");
   
+console.log(c);
+     
+     
+     if (c === null){
+document.body.innerHTML = "No search route provided"
+       
+     }else{
+addAPIkey()
+setContent(c, "tv")
+loadMarkdownParser('https://unpkg.com/construct-style-sheets-polyfill');       
+       loadMarkdownParser('https://polyfill.io/v3/polyfill.js?features=Array.prototype.map,fetch,Promise');       loadMarkdownParser('https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js');
+       
+     }
+
+
+}} 
+  
+if (window.location.href.indexOf("song") != -1) {
+
+window.onload=function(){
+     var url_string = window.location.href
+      var url = new URL(url_string);
+var c = url.searchParams.get("name");
+  
+console.log(c);
+     
+     
+     if (c === null){
+document.body.innerHTML = "No search route provided"
+       
+     }else{
+addAPIkey()
+setContent(c, "song")
+loadMarkdownParser('https://unpkg.com/construct-style-sheets-polyfill');       
+       loadMarkdownParser('https://polyfill.io/v3/polyfill.js?features=Array.prototype.map,fetch,Promise');       loadMarkdownParser('https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js');
+       
+     }
+
+
+}}   
 </script>  
