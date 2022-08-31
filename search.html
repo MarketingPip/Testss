@@ -1,3 +1,8 @@
+<head>
+    <script src="https://unpkg.com/construct-style-sheets-polyfill"></script>
+    <script src="https://polyfill.io/v3/polyfill.js?features=Array.prototype.map,fetch,Promise"></script>
+</head>
+
 <script>
 let query = ""
 let type = ""
@@ -115,8 +120,8 @@ document.body.innerHTML = "No search route provided"
      }else{
 addAPIkey()
 setContent(name, type)
-loadMarkdownParser('https://unpkg.com/construct-style-sheets-polyfill');       
-       loadMarkdownParser('https://polyfill.io/v3/polyfill.js?features=Array.prototype.map,fetch,Promise');       loadMarkdownParser('https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js');
+      
+    loadMarkdownParser('https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js');
        
      }
 
