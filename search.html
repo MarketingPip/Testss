@@ -80,7 +80,7 @@ script.onload = function () {
 
   
 
-<media-element id="test" ${type} name="${query}"></media-element>
+<media-element id="test" name="${query}" ${type}></media-element>
  `
   
 };
@@ -114,7 +114,7 @@ document.body.innerHTML = "No search route provided"
        
      }else{
 addAPIkey()
-setContent(name, c)
+setContent(name, type)
 loadMarkdownParser('https://unpkg.com/construct-style-sheets-polyfill');       
        loadMarkdownParser('https://polyfill.io/v3/polyfill.js?features=Array.prototype.map,fetch,Promise');       loadMarkdownParser('https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js');
        
