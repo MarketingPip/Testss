@@ -6,9 +6,11 @@
 <script>
 let query = ""
 let type = ""
-function setContent(x, y){
+let theme = ""
+function setContent(x, y, z){
   query = x 
   type =  y
+  theme = z  
 }
 function addAPIkey(){
   
@@ -85,7 +87,7 @@ script.onload = function () {
 
   
 
-<media-element id="test" name="${query}" ${type}></media-element>
+<media-element id="test" name="${query}" ${theme} ${type}></media-element>
  `
   
 };
@@ -106,6 +108,9 @@ if (c === "tv"){
 if (c === "movie"){
  type = ``
 }
+if (url.searchParams.get("theme")){
+ theme = `theme="dark"`
+}    
 
 var name = url.searchParams.get("name");  
 
@@ -119,7 +124,7 @@ document.body.innerHTML = "No search route provided"
        
      }else{
 addAPIkey()
-setContent(name, type)
+setContent(name, type, theme)
       
     loadMarkdownParser('https://cdn.jsdelivr.net/gh/MarketingPipeline/Media-Element.js/version/1.0.2/dist/media-element.min.js');
        
