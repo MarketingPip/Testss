@@ -55,6 +55,7 @@ if(typeof document !== 'undefined') {
  export function Sass_To_CSS(sass_value, compiler_type){
   
   
+     console.log('test")
   
   const SASS_To_CSS_Compiler = (sass_value, compiler_type) => {
   return new Promise((resolve, reject) => {
