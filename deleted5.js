@@ -9,7 +9,7 @@ let loadingSass = true;
    
 // SASS / CSS to CSS - core function  ///   
 
-export function Sass_To_CSS(sass_value, compiler_type){
+function Sass_To_CSS(sass_value, compiler_type){
   
   
      console.log('test")
@@ -129,7 +129,7 @@ if(typeof document !== 'undefined') {
     }
     
   }
-    
+    console.log('gfdfg')
   return corefunction(sass_value)
 }
 
