@@ -2,49 +2,6 @@ let SassLoaded = false;
 let loadingSass = true;
 
 
-//////// SCRIPT LOADER FOR BROWSER  ///////////
-
-/// JS DEVS - would be great if someone added non-browser support via import etc... 
-
-if(typeof document !== 'undefined') {
-
-    document.addEventListener('DOMContentLoaded', () => {
-      if(typeof Sass === 'undefined') {
-  
-        // load SASS / SCSS compiler for browser! ie - SASS.js
-          const event = loadSASSforBrowser()
-  .then(() => { SassLoaded= true, loadingSass = false })
-  .catch((error) => {SassLoaded = false, loadingSass = false });
-    
-        
-      }
-    })
-}
-                              
-    function loadSASSforBrowser(){
-   return new Promise(function (res, rej) {
-    let script = document.createElement('script');
-    script.src = "https://sass.js.org/js/sass.js/sass.sync.js";
-    script.type = 'text/javascript';
-    script.onError = rej;
-    script.async = true;
-    script.onload = res;
-    script.addEventListener('error',rej);
-    script.addEventListener('load',res);
-    document.head.appendChild(script);
- })
-
-
-    
-      
- }    
-      
-
-
-//////// END OF SCRIPT LOADER FOR BROWSER  ///////////
-
-
-
 
 
 
@@ -94,6 +51,52 @@ export function Sass_To_CSS(sass_value, compiler_type){
       
      // SCSS / SASS (Sass.js) compiler still loading - throw error 
     if( loadingSass == true){
+        
+        
+
+//////// SCRIPT LOADER FOR BROWSER  ///////////
+
+/// JS DEVS - would be great if someone added non-browser support via import etc... 
+
+if(typeof document !== 'undefined') {
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if(typeof Sass === 'undefined') {
+  
+        // load SASS / SCSS compiler for browser! ie - SASS.js
+          const event = loadSASSforBrowser()
+  .then(() => { SassLoaded= true, loadingSass = false })
+  .catch((error) => {SassLoaded = false, loadingSass = false });
+    
+        
+      }
+    })
+}
+                              
+    function loadSASSforBrowser(){
+   return new Promise(function (res, rej) {
+    let script = document.createElement('script');
+    script.src = "https://sass.js.org/js/sass.js/sass.sync.js";
+    script.type = 'text/javascript';
+    script.onError = rej;
+    script.async = true;
+    script.onload = res;
+    script.addEventListener('error',rej);
+    script.addEventListener('load',res);
+    document.head.appendChild(script);
+ })
+
+
+    
+      
+ }    
+      
+
+
+//////// END OF SCRIPT LOADER FOR BROWSER  ///////////
+
+
+        
         throw "Please wait - Sass / SCSS compiler is still loading!"
     }
     
