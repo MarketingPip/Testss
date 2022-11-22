@@ -2,58 +2,6 @@ let SassLoaded = false;
 let loadingSass = true;
 
 
-
-
-
-
-   
-// SASS / CSS to CSS - core function  ///   
-
-function Sass_To_CSS(sass_value, compiler_type){
-  
-  
-     console.log('test")
-  
-  const SASS_To_CSS_Compiler = (sass_value, compiler_type) => {
-  return new Promise((resolve, reject) => {
-    
-    if(compiler_type != "scss"){
-        Sass.compile(sass_value, {
-  // Compile as SASS
-  indentedSyntax:true,
-}, (prep) => {
-      resolve(prep)
-    })
-    } else{
-    // Compile string as SCSS 
-            Sass.compile(sass_value, (prep) => {
-      resolve(prep)
-    })
-      
-    }
-    
-  
-  })
-}
-
-  
-  
-  async function corefunction(sass_value, scss_or_sass) {
-  try {
-    
-        
-         // Indicate only used for the browser! 
-      if(typeof document == 'undefined') {
-            throw "This library is currently only supported for usage in the browser."
-          
-      }
-      
-      
-     // SCSS / SASS (Sass.js) compiler still loading - throw error 
-    if( loadingSass == true){
-        
-        
-
 //////// SCRIPT LOADER FOR BROWSER  ///////////
 
 /// JS DEVS - would be great if someone added non-browser support via import etc... 
@@ -96,7 +44,55 @@ if(typeof document !== 'undefined') {
 //////// END OF SCRIPT LOADER FOR BROWSER  ///////////
 
 
+
+
+
+
+
+   
+// SASS / CSS to CSS - core function  ///   
+
+ async function Sass_To_CSS(sass_value, compiler_type){
+  
+  
+  
+  const SASS_To_CSS_Compiler = (sass_value, compiler_type) => {
+  return new Promise((resolve, reject) => {
+    
+    if(compiler_type != "scss"){
+        Sass.compile(sass_value, {
+  // Compile as SASS
+  indentedSyntax:true,
+}, (prep) => {
+      resolve(prep)
+    })
+    } else{
+    // Compile string as SCSS 
+            Sass.compile(sass_value, (prep) => {
+      resolve(prep)
+    })
+      
+    }
+    
+  
+  })
+}
+
+  
+  
+  async function corefunction(sass_value, scss_or_sass) {
+  try {
+    
         
+         // Indicate only used for the browser! 
+      if(typeof document == 'undefined') {
+            throw "This library is currently only supported for usage in the browser."
+          
+      }
+      
+      
+     // SCSS / SASS (Sass.js) compiler still loading - throw error 
+    if( loadingSass == true){
         throw "Please wait - Sass / SCSS compiler is still loading!"
     }
     
@@ -129,7 +125,6 @@ if(typeof document !== 'undefined') {
     }
     
   }
-    console.log('gfdfg')
-  return corefunction(sass_value)
+    
+  return await corefunction(sass_value)
 }
-
