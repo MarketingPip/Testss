@@ -52,7 +52,7 @@ if(typeof document !== 'undefined') {
    
 // SASS / CSS to CSS - core function  ///   
 
- export function Sass_To_CSS(sass_value, compiler_type){
+function Sass_To_CSS(sass_value, compiler_type){
   
   
      console.log('test")
