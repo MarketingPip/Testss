@@ -8,7 +8,7 @@ let loadingSass = true;
 
 if(typeof document !== 'undefined') {
 
-    document.addEventListener('DOMContentLoaded', () => {
+
       if(typeof Sass === 'undefined') {
   
         // load SASS / SCSS compiler for browser! ie - SASS.js
@@ -18,7 +18,6 @@ if(typeof document !== 'undefined') {
     
         
       }
-    })
 }
                               
     function loadSASSforBrowser(){
