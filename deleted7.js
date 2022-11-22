@@ -126,5 +126,5 @@ if(typeof document !== 'undefined') {
     
   }
     
-  return await corefunction(sass_value)
+  return corefunction(sass_value)
 }
