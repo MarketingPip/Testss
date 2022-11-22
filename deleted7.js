@@ -52,7 +52,7 @@ if(typeof document !== 'undefined') {
    
 // SASS / CSS to CSS - core function  ///   
 
- async function Sass_To_CSS(sass_value, compiler_type){
+ export function Sass_To_CSS(sass_value, compiler_type){
   
   
   
