@@ -128,3 +128,8 @@ if(typeof document !== 'undefined') {
     
   return corefunction(sass_value)
 }
+
+
+ export function Sass_To_CSS_Export(sass_value, compiler_type){
+     return Sass_To_CSS(sass_value, compiler_type)
+ }
