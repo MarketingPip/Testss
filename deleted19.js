@@ -32,9 +32,9 @@
 
 */
 
-export function Termino(terminalSelector, keyCodes, settings){ 
+export function Termino(terminalSelector, keyCodes, settings) {
+
   try {
-    window.onload = (event) => {
     // DEFAULT TERMINAL SETTINGS   
     let DEF_SETTINGS = {
       allow_scroll: true, // allow scroll up & down on terminal 
@@ -80,6 +80,16 @@ export function Termino(terminalSelector, keyCodes, settings){
 
     
     
+    // DEFAULT SCROLL BTNS
+
+    /// DOWN ARROW
+    let Scroll_Down_Key = KEYCODES.filter(x => x.id === "SCROLL_DOWN_KEY")[0].key_code
+
+    /// UP ARROW
+    let Scroll_Up_Key = KEYCODES.filter(x => x.id === "SCROLL_UP_KEY")[0].key_code
+
+
+    
     /// ALLOW DEVS TO PASS CUSTOM KEYCODE FUNCTIONS FOR TERMINAL
 
     if (keyCodes) {
@@ -107,15 +117,7 @@ export function Termino(terminalSelector, keyCodes, settings){
 
 
 
-    // DEFAULT SCROLL BTNS
-
-    /// DOWN ARROW
-    let Scroll_Down_Key = KEYCODES.filter(x => x.id === "SCROLL_DOWN_KEY")[0].key_code
-
-    /// UP ARROW
-    let Scroll_Up_Key = KEYCODES.filter(x => x.id === "SCROLL_UP_KEY")[0].key_code
-
-
+ 
 
 
     /// SCROLL UP / DOWN TERMINAL FUNCTION
@@ -377,7 +379,6 @@ export function Termino(terminalSelector, keyCodes, settings){
         remove_element: removeElementWithID, // REMOVE HTML ELEMENT WITH ID TO TERMINAL,
         kill: termKill, // KILL THE TERMIMAL - IE.. SET INPUT TO DISABLED & CLEAR THE TERMINAL.
     };
-  }      
  } catch(error){
    // Something went wrong! 
   console.log(`Termino Error: ${error.message}`)
