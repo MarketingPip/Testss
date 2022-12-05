@@ -32,7 +32,7 @@
 
 */
 
-export function Termino(terminalSelector, keyCodes, settings) {
+function Termino(terminalSelector, keyCodes, settings) {
 
   try {
     // DEFAULT TERMINAL SETTINGS   
