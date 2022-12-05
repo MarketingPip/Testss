@@ -34,7 +34,7 @@
 
 export function Termino(terminalSelector, keyCodes, settings){ 
   try {
-    window.addEventListener("load", (event) => { 
+    document.addEventListener("DOMContentLoaded", (event) => {
     // DEFAULT TERMINAL SETTINGS   
     let DEF_SETTINGS = {
       allow_scroll: true, // allow scroll up & down on terminal 
