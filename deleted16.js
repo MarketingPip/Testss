@@ -32,10 +32,9 @@
 
 */
 
-export function Termino(terminalSelector, keyCodes, settings) {
-window.addEventListener("load", (event) => {
-  
+export function Termino(terminalSelector, keyCodes, settings){ 
   try {
+    window.addEventListener("load", (event) => { 
     // DEFAULT TERMINAL SETTINGS   
     let DEF_SETTINGS = {
       allow_scroll: true, // allow scroll up & down on terminal 
@@ -378,9 +377,9 @@ window.addEventListener("load", (event) => {
         remove_element: removeElementWithID, // REMOVE HTML ELEMENT WITH ID TO TERMINAL,
         kill: termKill, // KILL THE TERMIMAL - IE.. SET INPUT TO DISABLED & CLEAR THE TERMINAL.
     };
+  });      
  } catch(error){
    // Something went wrong! 
   console.log(`Termino Error: ${error.message}`)
 }
 }
-});                        
