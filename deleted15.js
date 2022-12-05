@@ -33,7 +33,8 @@
 */
 
 export function Termino(terminalSelector, keyCodes, settings) {
-
+window.addEventListener("load", (event) => {
+  
   try {
     // DEFAULT TERMINAL SETTINGS   
     let DEF_SETTINGS = {
@@ -382,3 +383,4 @@ export function Termino(terminalSelector, keyCodes, settings) {
   console.log(`Termino Error: ${error.message}`)
 }
 }
+});                        
