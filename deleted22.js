@@ -34,7 +34,7 @@
 - LOTS OF OTHER IMPROVEMENTS THAT CAN BE MADE THO THIS. IF YOU ARE WILLING TO IMPROVE IT. FEEL FREE! :)
 
 */
-function Termino(terminalSelector, keyCodes, settings) {
+export function Termino(terminalSelector, keyCodes, settings) {
 
   try {
     // DEFAULT TERMINAL SETTINGS   
@@ -378,12 +378,3 @@ function Termino(terminalSelector, keyCodes, settings) {
   }
 }
 
-
-// node.js
-	if (typeof module !== 'undefined' && module.exports) {
-		module.exports = Termino;
-
-	// web browsers
-	} else {
-		window.Termino = Termino;
-	}
