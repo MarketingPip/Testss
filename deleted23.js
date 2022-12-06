@@ -40,8 +40,7 @@
 // POLYFILL SUPPORT (AUTO-DETECTED ON LOAD FOR DEVICE)
 import 'https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.filter,console,document,JSON,Promise'
 
-if (typeof document !== 'undefined') {
-  export function Termino(terminalSelector, keyCodes, settings) {
+export function Termino(terminalSelector, keyCodes, settings) {
 
     try {
       // DEFAULT TERMINAL SETTINGS   
@@ -384,7 +383,6 @@ if (typeof document !== 'undefined') {
       }
     }
   }
-}
 
 if (typeof document === 'undefined') {
   console.error("Termino.js is only supported for the browser")
