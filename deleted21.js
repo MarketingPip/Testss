@@ -18,20 +18,22 @@
   - CREATE TEMPLATE TO USE PLUGIN / CREATE PLUGINS 
   - PLUGIN FOR CREATING TERMINAL ANIMATIONS VIA A TYPEWRITER / TYPING LIBRARY ETC.. 
   - PLUGIN FOR PLAYING PRE-RECORDED TERMINAL ANIMATIONS. 
-- IMPROVE ERROR HANDLING (CHECK IF PASSED PROPER ARGUMENTS - ARRAY TYPE / JSON TYPE ETC...) 
-- MAKE THIS A EXPORT THIS AS WELL & GLOBAL IN SAME SCRIPT.
+- IMPROVE ERROR HANDLING (CHECK IF PASSED PROPER ARGUMENTS - CHECK IF VARIABLE IS ARRAY TYPE / JSON TYPE ETC...)
+- CODE CLEANING - USE CONST INSTEAD OF LET VARIABLES WHEN CAN.
+  - CLEAN / IMPROVE FILTER FUNCTION. 
+- REMOVE EVENT HANDLERS WHEN TERMINAL INSTANCE IS KILLED. 
+- MAKE THIS A EXPORT THIS AS WELL & GLOBAL IN SAME SCRIPT....? (DISCUSSION) 
 - INTERATION OBERSERVER FOR ANIMATIONS / POSSIBLY ALL INSTANCES. 
 - DOM OBSERVER (FOR NEW TERMINALS IN DOM) 
 - ADD ANY POLYFILL SUPPORTS NEEDED / UNTHOUGHT OF. 
 - CREATE TESTS + ACTION / WORKFLOW
-  - BROWSER AUTOMATION TESTS VIA PUPPETEER ETC. 
+  - BROWSER AUTOMATION TESTS VIA PUPPETEER ETC (CHECK ALL DEVICES / BROWSER COMPABILITY + POSSIBLY SCREENSHOTS). 
   - OTHER TESTS. 
-  - CREATE RUN WORKFLOWS ON PR.
+  - CREATE ACTION THAT AUTO TESTS ON PR.
   - IF ANYONE COULD HELP WRITING TESTS / THESE WOULD BE APPRECIATED. 
 - LOTS OF OTHER IMPROVEMENTS THAT CAN BE MADE THO THIS. IF YOU ARE WILLING TO IMPROVE IT. FEEL FREE! :)
 
 */
-
 function Termino(terminalSelector, keyCodes, settings) {
 
   try {
@@ -55,13 +57,14 @@ function Termino(terminalSelector, keyCodes, settings) {
       // CUSTOM SETTINGS PASSED ARE NOT VALID
       if (compare(DEF_SETTINGS, settings) != true) {
         throw {
-          message: "Termino Error: Your overwritten Termino settings are not valid"
+          message: "Settings Error: Your overwritten Termino settings are not valid"
         }
       } else {
         // CUSTOM SETTINGS ARE VALID
         DEF_SETTINGS = settings
       }
     }
+
 
     let terminal_console = terminalSelector.querySelector(DEF_SETTINGS.terminal_output)
 
@@ -78,8 +81,8 @@ function Termino(terminalSelector, keyCodes, settings) {
       // "function": example() // you can add your own custom function to the scroll down button if needed! 
     }];
 
-    
-    
+
+
     // DEFAULT SCROLL BTNS
 
     /// DOWN ARROW
@@ -89,7 +92,8 @@ function Termino(terminalSelector, keyCodes, settings) {
     let Scroll_Up_Key = KEYCODES.filter(x => x.id === "SCROLL_UP_KEY")[0].key_code
 
 
-    
+
+
     /// ALLOW DEVS TO PASS CUSTOM KEYCODE FUNCTIONS FOR TERMINAL
 
     if (keyCodes) {
@@ -111,52 +115,45 @@ function Termino(terminalSelector, keyCodes, settings) {
     }
 
 
+
+
     // DEFAULT COMMAND KEY - ie - ENTER BTN
     let Command_Key = DEF_SETTINGS.command_key
 
 
 
 
- 
+    // Handle keyboard events for the Termino.js instance.
+    terminalSelector.addEventListener('keydown', e => {
 
-
-    /// SCROLL UP / DOWN TERMINAL FUNCTION
-
-    //// DISABLE TERMINAL SCROLL UP / DOWN FOR ANIMATIONS ETC... 
-    if (DEF_SETTINGS.disable_terminal_input != true) {
-
-
-      if (DEF_SETTINGS.allow_scroll === true) {
-        terminalSelector.addEventListener('keydown', e => {
-
-
-          if (e.keyCode == Scroll_Up_Key) {
-            /// SCROLL TERMINAL UP
-            terminal_console.scrollTo({
-              top: 0,
-              behavior: 'smooth'
-            });
-          } else if (e.keyCode == Scroll_Down_Key) {
-            /// SCROLL TERMINAL DOWN
-            terminal_console.scrollTop = terminal_console.scrollHeight;
-          }
-        });
+      //// DISABLE TERMINAL SCROLL UP / DOWN FOR ANIMATIONS ETC...
+      if (DEF_SETTINGS.disable_terminal_input != true) {
+        /// HANDLE INPUTS ON COMMAND KEY. 
+        checkIfCommand()
       }
 
+      /// SCROLL UP / DOWN TERMINAL FUNCTION
+      if (DEF_SETTINGS.allow_scroll === true) {
+        if (e.keyCode == Scroll_Up_Key) {
+          /// SCROLL TERMINAL UP
+          terminal_console.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        } else if (e.keyCode == Scroll_Down_Key) {
+          /// SCROLL TERMINAL DOWN
+          terminal_console.scrollTop = terminal_console.scrollHeight;
+        }
+      }
+    });
 
-
-      /// HANDLE INPUTS ON COMMAND KEY. 
-      terminalSelector.addEventListener("keydown", (event) => {
-        checkIfCommand()
-      });
-    }
 
 
 
     // TERMINAL INPUT STATE / TERMINAL PROMPT FUNCTION  
-    let AskQuestionState = false;
+    let InputState = false;
 
-    function ask(question) {
+    function termInput(question) {
       return new Promise(function(resolve) {
 
         /// add the question value to terminal
@@ -167,7 +164,7 @@ function Termino(terminalSelector, keyCodes, settings) {
 
         scrollTerminalToBottom()
 
-        AskQuestionState = true;
+        InputState = true;
 
         function handleCommandForQuestion(event) {
 
@@ -178,15 +175,15 @@ function Termino(terminalSelector, keyCodes, settings) {
             let value = terminalSelector.querySelector(DEF_SETTINGS.terminal_input).value
             termClearValue()
             terminalSelector.querySelector(DEF_SETTINGS.terminal_input).removeEventListener('keypress', handleCommandForQuestion);
-            AskQuestionState = false;
-            if(value.length != 0){
-             // echo value to terminal
-             termEcho(value)
-             resolve(value)
-            } else{
-             // return an empty prompt
-             termEcho("")
-             resolve()
+            InputState = false;
+            if (value.length != 0) {
+              // echo value to terminal
+              termEcho(value)
+              resolve(value)
+            } else {
+              // return an empty prompt
+              termEcho("")
+              resolve()
             }
 
           }
@@ -255,7 +252,7 @@ function Termino(terminalSelector, keyCodes, settings) {
     }
 
     /// FUNCTION TO DELAY TERMINAL OUTPUTS / ECHO ETC (AWAIT / PROMISE BASED) - EXAMPLE : await term.delay(xxx) ...     
-    const delay = ms => new Promise(res => setTimeout(res, ms));
+    const termDelay = ms => new Promise(res => setTimeout(res, ms));
 
 
 
@@ -300,14 +297,16 @@ function Termino(terminalSelector, keyCodes, settings) {
       try {
         terminalSelector.querySelector("#" + id).outerHTML = "";
       } catch (error) {
-        console.log(`Termino Error: ${error.message}`)
+        throw {
+          message: `Error could not find ${error.message}`
+        }
       }
     }
 
 
 
     // If the user has pressed COMMAND btn - default btn is enter
-    function checkIfCommand() {
+    async function checkIfCommand() {
 
       let key = window.event.keyCode;
 
@@ -319,9 +318,11 @@ function Termino(terminalSelector, keyCodes, settings) {
         if (KEYCODES.length != 0) {
           if (KEYCODES[0].function != undefined)
             try {
-              eval(KEYCODES[0].function)
+              await eval(KEYCODES[0].function)
             } catch (error) {
-              console.log(`Temino KeyCode Function Error: ${error.message}`)
+              throw {
+                message: `KeyCode Function Error: ${error.message}`
+              }
             }
         }
       }
@@ -329,7 +330,7 @@ function Termino(terminalSelector, keyCodes, settings) {
 
 
       /// MAKE SURE USER IS NOT ANSWERING A QUESTION
-      if (AskQuestionState != true) {
+      if (InputState != true) {
 
 
         /// ECHO INPUT VALUE ON COMMAND BUTTON - BY DEFAULT IS ENTER. 
@@ -348,39 +349,41 @@ function Termino(terminalSelector, keyCodes, settings) {
           /// CLEAR OUTPUT  
           termClearValue()
 
-  
-    }
-    
-  }
-   
-}   /// DEFAULT TERMINO FUNCTIONS FOR DEVELOPER USAGE
-   return { 
-        echo: termEcho, // ECHO MESSAGE TO TERM WITH CAROT
-        output: termOutput, // ECHO MESSAGE TO TERM WITHOUT CAROT
-        clear: termClear, // CLEAR THE TERMINAL
-        delay: delay, // DELAY FUNCTION BY X VALUE OF SECONDS
-        disable_input: termDisable, // DISABLE TERMINAL INPUT
-        enable_input: termEnable, // ENABLE TERMINAL INPUT
-        input: ask, // ASK USER QUESTION & RETURN VALUE
-        scroll_to_bottom: scrollTerminalToBottom, // SCROLL TERMINAL TO THE BOTTOM
-        scroll_to_top: scrollTerminalToTop, // SCROLL TERMINAL TO TOP
-        add_element: addElementWithID, // ADD HTML ELEMENT WITH ID TO TERMINAL,
-        remove_element: removeElementWithID, // REMOVE HTML ELEMENT WITH ID TO TERMINAL,
-        kill: termKill, // KILL THE TERMIMAL - IE.. SET INPUT TO DISABLED & CLEAR THE TERMINAL.
-        output: termOutput, // ECHO MESSAGE TO TERM WITHOUT CAROT
-        clear: termClear, // CLEAR THE TERMINAL
-        delay: delay, // DELAY FUNCTION BY X VALUE OF SECONDS
-        disable_input: termDisable, // DISABLE TERMINAL INPUT
-        enable_input: termEnable, // ENABLE TERMINAL INPUT
-        input: ask, // ASK USER QUESTION & RETURN VALUE
-        scroll_to_bottom: scrollTerminalToBottom, // SCROLL TERMINAL TO THE BOTTOM
-        scroll_to_top: scrollTerminalToTop, // SCROLL TERMINAL TO TOP
-        add_element: addElementWithID, // ADD HTML ELEMENT WITH ID TO TERMINAL,
-        remove_element: removeElementWithID, // REMOVE HTML ELEMENT WITH ID TO TERMINAL,
-        kill: termKill, // KILL THE TERMIMAL - IE.. SET INPUT TO DISABLED & CLEAR THE TERMINAL.
+
+        }
+
+      }
+
+    } /// DEFAULT TERMINO FUNCTIONS FOR DEVELOPER USAGE
+    return {
+      echo: termEcho, // ECHO MESSAGE TO TERM WITH CAROT
+      output: termOutput, // ECHO MESSAGE TO TERM WITHOUT CAROT
+      clear: termClear, // CLEAR THE TERMINAL
+      delay: termDelay, // DELAY FUNCTION BY X VALUE OF SECONDS
+      disable_input: termDisable, // DISABLE TERMINAL INPUT
+      enable_input: termEnable, // ENABLE TERMINAL INPUT
+      input: termInput, // ASK USER QUESTION & RETURN VALUE
+      scroll_to_bottom: scrollTerminalToBottom, // SCROLL TERMINAL TO THE BOTTOM
+      scroll_to_top: scrollTerminalToTop, // SCROLL TERMINAL TO TOP
+      add_element: addElementWithID, // ADD HTML ELEMENT WITH ID TO TERMINAL,
+      remove_element: removeElementWithID, // REMOVE HTML ELEMENT WITH ID TO TERMINAL,
+      kill: termKill // KILL THE TERMIMAL - IE.. SET INPUT TO DISABLED & CLEAR THE TERMINAL.
     };
- } catch(error){
-   // Something went wrong! 
-  console.log(`Termino Error: ${error.message}`)
+  } catch (error) {
+    // Something went wrong! 
+    console.error(`Termino.js Error: ${error.message}`)
+    throw {
+      message: `Termino.js Error: ${error.message}`
+    }
+  }
 }
-}
+
+
+// node.js
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = Termino;
+
+	// web browsers
+	} else {
+		window.Termino = Termino;
+	}
