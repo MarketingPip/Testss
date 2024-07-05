@@ -60,7 +60,7 @@ function loadMarkdownParser(url){
   /// Add Markdown Parser To Document
 var script = document.createElement('script');
 script.src = url;
-
+script.type = "module"
 document.head.appendChild(script); //or something of the likes  
   
   
